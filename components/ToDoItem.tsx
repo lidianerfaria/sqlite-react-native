@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
-import {ToDoItem as ToDoItemModel} from '../models/ToDoItems';
+import {ToDoItem as ToDoItemModel} from '../models/ToDoItem';
 
 export const ToDoItem: React.FC<{
   todo: ToDoItemModel;

@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, {useCallback, useEffect, useState} from 'react';
 import {
   Button,
@@ -12,14 +13,14 @@ import {
 } from 'react-native';
 
 import {ToDoItem as ToDoItemComponent} from './components/ToDoItem';
-import {ToDoItem} from './models/ToDoItems';
+import {ToDoItem} from './models/ToDoItem';
 import {
   createTable,
   deleteTodoItem,
   getDBConnection,
   getTodoItems,
   saveTodoItems,
-} from './db-service';
+} from './services/db-service';
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -31,7 +32,7 @@ const App = () => {
       const initTodos = [
         {id: 0, value: 'go to shop'},
         {id: 1, value: 'eat at least a one healthy foods'},
-        {id: 2, value: 'Do some exercises'},
+        {id: 2, value: 'do some exercises'},
       ];
       const db = await getDBConnection();
       await createTable(db);
@@ -95,7 +96,7 @@ const App = () => {
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View style={[styles.appTitleView]}>
-          <Text style={styles.appTitleText}> ToDo Application </Text>
+          <Text style={styles.appTitleText}> ToDo List </Text>
         </View>
 
         <View>
