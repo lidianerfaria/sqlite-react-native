@@ -35,27 +35,28 @@ const App = () => {
         {id: 2, value: 'do some exercises'},
       ];
       const db = await getDBConnection();
-      await createTable(db);
-      const storedTodoItems = await getTodoItems(db);
+      await createTable(db); //Criação da tabela
+      const storedTodoItems = await getTodoItems(db); //Recuperação dos itens de tarefa pendente do banco de dados
       if (storedTodoItems.length) {
+        //Verificação de itens armazenados
         setTodos(storedTodoItems);
       } else {
-        await saveTodoItems(db, initTodos);
+        await saveTodoItems(db, initTodos); //Inicialização com valores padrão caso não haja itens de tarefa
         setTodos(initTodos);
       }
     } catch (error) {
       console.error(error);
     }
-  }, []);
+  }, []); //Será executada na inicialização da aplicação
 
   useEffect(() => {
     loadDataCallback();
-  }, [loadDataCallback]);
+  }, [loadDataCallback]); //Chama a função loadDataCallback na inicialização da aplicação
 
   const addTodo = async () => {
     if (!newTodo.trim()) {
       return;
-    }
+    } //Verificação de entrada vazia
     try {
       const newTodos = [
         ...todos,
@@ -70,23 +71,26 @@ const App = () => {
             : 0,
           value: newTodo,
         },
-      ];
-      setTodos(newTodos);
-      const db = await getDBConnection();
-      await saveTodoItems(db, newTodos);
-      setNewTodo('');
+      ]; //Criação de um novo array de tarefas pendentes
+      setTodos(newTodos); //Atribuição do novo array de tarefas pendentes
+      const db = await getDBConnection(); //Conexão com o banco de dados
+      await saveTodoItems(db, newTodos); //Salvando os novos itens no banco de dados
+      setNewTodo(''); //Limpeza da entrada
     } catch (error) {
+      //Tratamento de erros
       console.error(error);
     }
   };
 
   const deleteItem = async (id: number) => {
+    //Parâmetro de ID
     try {
-      const db = await getDBConnection();
-      await deleteTodoItem(db, id);
-      todos.splice(id, 1);
-      setTodos(todos.slice(0));
+      const db = await getDBConnection(); //Conexão com o banco de dados
+      await deleteTodoItem(db, id); //Excluindo o item do banco de dados
+      todos.splice(id, 1); //Removendo o item do array de tarefas pendentes
+      setTodos(todos.slice(0)); //Atualização do estado da aplicação
     } catch (error) {
+      //Tratamento de erros
       console.error(error);
     }
   };
